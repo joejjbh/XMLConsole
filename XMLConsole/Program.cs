@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace XMLConsole
@@ -47,10 +48,21 @@ namespace XMLConsole
                 using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
                     XDocument document = XDocument.Load(responseStream);
+//                     find the 4 <a> tags
+                    var xElements = document.Descendants("{http://www.w3.org/1999/xhtml}a");
+                    foreach (var element in xElements)
+                    {
+                        Console.WriteLine(element);
+                    }
+//                     get each individual href 
 
-                    Console.WriteLine(document);
-                }             
+                    // request for each href added onto http://peg-ctmcoruqt02.comparethemarket.local:65000/ 
+                    // save the contents to 4 individual xml files 
+//                    Console.WriteLine(document);
+                }
             }
         }
+
+
     }
 }
